@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Kompose\kompose.exe convert -f .\docker-compose.yaml
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: backend
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Kompose\kompose.exe convert -f .\docker-compose.yaml
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/aos-practica2-default: "true"
+        io.kompose.service: backend
+    spec:
+      containers:
+        - args:
+            - mock
+            - --cors
+            - -h
+            - 0.0.0.0
+            - /aos/openapi.yaml
+          image: geanf13/backend:v1
+          name: clientesmock
+          ports:
+            - containerPort: 4010
+          resources: {}
+      restartPolicy: Always
+status: {}
