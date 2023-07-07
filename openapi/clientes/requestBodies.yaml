@@ -1,6 +1,6 @@
 #requestBodies:
 clienteRB:
-  description: Información de la nueva Plataforma
+  description: Información de los Clientes
   required: true
   content:
     application/json:
@@ -20,3 +20,7 @@ clienteRB:
             $ref: 'schemas.yaml#/Direccion_Cliente'
           cuenta_bancaria:
             $ref: 'schemas.yaml#/CuentaBancaria_Cliente'
+          telefono:
+            $ref: 'schemas.yaml#/Telefono'
+          mail:
+            $ref: 'schemas.yaml#/Mail'

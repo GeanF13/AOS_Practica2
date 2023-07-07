@@ -3,11 +3,13 @@ clientes-example:
   value:
     clientes:
       - { "cliente": { "id": "P01-001-A", "dni": "12345678u", "nombre" : "Pepe", "apellidos" : "Popo Pipi", "direccion" : "mi casa 1", "cuenta_bancaria" : "aa10101010101010101010",
+            "telefono" : "+12 122122123", "mail" : "asdf@asdf.as",
             "links": {
               "parent": { "href": "https://example.com/api/v1/clientes", "rel": "cliente_post cliente_cget"},
               "self": { "href": "https://example.com/api/v1/clientes/P01-001-A", "rel": "cliente_get cliente_delete cliente_put" }
           }}}
       - { "cliente": { "id": "P02-039-C", "dni": "98765432w", "nombre" : "Manuel", "apellidos" : "Ottaviano", "direccion" : "upm 2", "cuenta_bancaria" : "aa22101010101010101010",
+            "telefono" : "+12 111122123", "mail" : "a1111qqf@asdf.as",
             "links": {
               "parent": { "href": "https://example.com/api/v1/clientes", "rel": "cliente_post cliente_cget"},
               "self": { "href": "https://example.com/api/v1/clientes/P02-039-C", "rel": "cliente_get cliente_delete cliente_put" }

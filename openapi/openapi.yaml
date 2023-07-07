@@ -2,13 +2,11 @@ openapi: 3.0.3
 
 info:
   version: 1.0.0
-  title: 👨🏼‍✈️ Gestión de Clientes 👩🏼‍✈️
+  title: 🛠️ Gestión de Microservicios de Taller 🛠️
   description: >
-    API Rest para la gestión de clientes de un taller de mecánica
+    API Rest para la gestión de microservicios de un taller de mecánica
   contact:
-    name: Grupo 10 
-    url: 'https://moodle.upm.es/titulaciones/oficiales/mod/assign/view.php?id=95193'
-    email: example.exampale@example.example
+    name: Grupo 4
 
 servers:
   - url: http://127.0.0.1:80/api/v1
@@ -19,28 +17,227 @@ tags:
 
 paths:
   /cliente: 
-    $ref: 'clientes.yaml'
+    $ref: './clientes/clientes.yaml'
   /clientes/{cliente_id}:
-    $ref: 'clientes-by-id.yaml'
+    $ref: './clientes/clientes-by-id.yaml'
+
+  /vehiculos:
+    $ref: './vehiculos.yaml#/paths/~1vehiculos'
+  /vehiculos/{vehiculo_id}:
+    $ref: './vehiculos.yaml#/paths/~1vehiculos~1{vehiculo_id}'
+  /vehiculos/{matricula}:
+    $ref: './vehiculos.yaml#/paths/~1vehiculos~1{matricula}'
+  /taller/{trabajo_id}/{vehiculo_id}:
+    $ref: './vehiculos.yaml#/paths/~1taller~1{trabajo_id}~1{vehiculo_id}'
+    
+  /tipos-trabajo:
+    $ref: './trabajos.yaml#/paths/~1tipos-trabajo'
+  /tipos-trabajo/{IdTipoActividad}:
+    $ref: './trabajos.yaml#/paths/~1tipos-trabajo~1{IdTipoActividad}'
+  /TrabajoDiario:
+    $ref: './trabajos.yaml#/paths/~1TrabajoDiario'
+  /TrabajosSegunCoche/{CarVIN}:
+    $ref: './trabajos.yaml#/paths/~1TrabajosSegunCoche~1{CarVIN}'
+  /TrabajoDiario/{IdTrabajoDiario}:
+    $ref: './trabajos.yaml#/paths/~1TrabajoDiario~1{IdTrabajoDiario}'
+  /TrabajoDiarioEstados/{EstadoTrabajo}:
+    $ref: './trabajos.yaml#/paths/~1TrabajoDiarioEstados~1{EstadoTrabajo}'
+  /TrabajoDiarioRecursos/{IdRecurso}:
+    $ref: './trabajos.yaml#/paths/~1TrabajoDiarioRecursos~1{IdRecurso}'
+
+  /facturas:
+    $ref: './facturas.yaml#/paths/~1facturas'
+  /facturas/{facturaid}:
+    $ref: './facturas.yaml#/paths/~1facturas~1{facturaid}'
+
+  /recambios:
+    $ref: './recambios/paths/recambios.yaml'
+  /recambios/{Numero_Serie}:
+    $ref: './recambios/paths/recambio.yaml'
+
+  /notificaciones:
+    $ref: 'notificaciones.yaml#/paths/~1notificaciones'
+  /notificaciones/{notificacion_id}:
+    $ref: 'notificaciones.yaml#/paths/~1notificaciones~1{notificacion_id}'   
+  /notificaciones/trabajo/{trabajo_id}:
+    $ref: 'notificaciones.yaml#/paths/~1notificaciones~1trabajo~1{trabajo_id}'
+
+  /logs:
+    $ref: './logs.yaml#/paths/~1logs' 
+  /logs/{log_id}:
+    $ref: './logs.yaml#/paths/~1logs~1{log_id}' 
+  
+
+
 
 components:
   schemas:
-    Cliente:
-      $ref: 'schemas.yaml#/Cliente'
-    Id_Cliente:
-      $ref: 'schemas.yaml#/Id_Cliente'
-    DNI_Cliente:
-      $ref: 'schemas.yaml#/DNI_Cliente'
-    Nombre_Cliente:
-      $ref: 'schemas.yaml#/Nombre_Cliente'
-    Apellidos_Cliente:
-      $ref: 'schemas.yaml#/Apellidos_Cliente'
-    Direccion_Cliente:
-      $ref: 'schemas.yaml#/Direccion_Cliente'
-    CuentaBancaria_Cliente:
-      $ref: 'schemas.yaml#/CuentaBancaria_Cliente'
-    HTTP_Problem:
-      $ref: 'schemas.yaml#/HTTP_Problem'
-    Link:
-      $ref: 'schemas.yaml#/Link'
-  
+    Clientes:
+      type: object
+      properties:
+        Cliente:
+          $ref: './clientes/schemas.yaml#/Cliente'
+        Id_Cliente:
+          $ref: './clientes/schemas.yaml#/Id_Cliente'
+        DNI_Cliente:
+          $ref: './clientes/schemas.yaml#/DNI_Cliente'
+        Nombre_Cliente:
+          $ref: './clientes/schemas.yaml#/Nombre_Cliente'
+        Apellidos_Cliente:
+          $ref: './clientes/schemas.yaml#/Apellidos_Cliente'
+        Direccion_Cliente:
+          $ref: './clientes/schemas.yaml#/Direccion_Cliente'
+        CuentaBancaria_Cliente:
+          $ref: './clientes/schemas.yaml#/CuentaBancaria_Cliente'
+        Telefono: 
+          $ref: './clientes/schemas.yaml#/Telefono'
+        Mail: 
+          $ref: './clientes/schemas.yaml#/Mail'
+        HTTP_Problem:
+          $ref: './clientes/schemas.yaml#/HTTP_Problem'
+        Link:
+          $ref: './clientes/schemas.yaml#/Link'
+
+    Vehiculos:
+      type: object
+      properties:
+        Vehiculos:
+          $ref: './vehiculos.yaml#/components/schemas/Vehiculos'
+        ReservaTrabajo:
+          $ref: './vehiculos.yaml#/components/schemas/ReservaTrabajo'
+        Id_Vehiculo:
+          $ref: './vehiculos.yaml#/components/schemas/Id_Vehiculo'
+        Matricula:
+          $ref: './vehiculos.yaml#/components/schemas/Matricula'
+        Estados_Vehiculos:
+          $ref: './vehiculos.yaml#/components/schemas/Estados_Vehiculos'
+        HTTP_Problem:
+          $ref: './vehiculos.yaml#/components/schemas/HTTP_Problem'
+        Link:
+          $ref: './vehiculos.yaml#/components/schemas/Link'
+
+    Trabajos:
+      type: object
+      properties:
+        TipoTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/TipoTrabajo'
+        TrabajoDiario:
+          $ref: './trabajos.yaml#/components/schemas/TrabajoDiario'
+        IdTrabajoDiario:
+          $ref: './trabajos.yaml#/components/schemas/IdTrabajoDiario'
+        IdTipoTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/IdTipoTrabajo'
+        NombreTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/NombreTrabajo'
+        DescripcionTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/DescripcionTrabajo'
+        MotivoTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/MotivoTrabajo'
+        FechaInicio:
+          $ref: './trabajos.yaml#/components/schemas/FechaInicio'
+        HorasDedicadas:
+          $ref: './trabajos.yaml#/components/schemas/HorasDedicadas'
+        IdRecurso:
+          $ref: './trabajos.yaml#/components/schemas/IdRecurso'
+        FechaFin:
+          $ref: './trabajos.yaml#/components/schemas/FechaFin'
+        RecursosNecesarios:
+          $ref: './trabajos.yaml#/components/schemas/RecursosNecesarios'
+        EstadoTrabajo:
+          $ref: './trabajos.yaml#/components/schemas/EstadoTrabajo'
+        VINCoche:
+          $ref: './trabajos.yaml#/components/schemas/VINCoche'
+        HTTP_Problem:
+          $ref: './trabajos.yaml#/components/schemas/HTTP_Problem'
+        Link:
+          $ref: './trabajos.yaml#/components/schemas/Link'
+
+    Facturas:    
+      type: object
+      properties:
+        Factura:
+          $ref: './facturas.yaml#/components/schemas/Factura'
+        id_factura:
+          $ref: './facturas.yaml#/components/schemas/id_factura'
+        estado:
+            $ref: './facturas.yaml#/components/schemas/estado'
+        VIN_coche:
+          $ref: './facturas.yaml#/components/schemas/VIN_coche'
+        Id_cliente:
+          $ref: './facturas.yaml#/components/schemas/Id_cliente'
+        id_trabajo:
+          $ref: './facturas.yaml#/components/schemas/id_trabajo'
+        trabajos:
+          $ref: './facturas.yaml#/components/schemas/trabajos'
+        importe_total:
+          $ref: './facturas.yaml#/components/schemas/importe_total'
+        fecha_factura:
+          $ref: './facturas.yaml#/components/schemas/fecha_factura'
+        Link:
+          $ref: './facturas.yaml#/components/schemas/Link'
+        HTTP_Problem:
+           $ref: './facturas.yaml#/components/schemas/HTTP_Problem'
+
+    Recambios:
+      type: object
+      properties:
+        Recambio:
+          $ref: './recambios/schemas/Recambio.yaml'
+        numero_serie:
+          $ref: './recambios/schemas/Numero_Serie.yaml'
+        nombre:
+          $ref: './recambios/schemas/Nombre_Recambio.yaml'
+        descripcion:
+          $ref: './recambios/schemas/Descripcion_Recambio.yaml'
+        proveedor:
+          $ref: './recambios/schemas/Proveedor_Recambio.yaml'
+        equivalencias:
+          $ref: './recambios/schemas/Equivalencias_Recambio.yaml'
+        garantia:
+          $ref: './recambios/schemas/Garantia_Recambio.yaml'
+        precio: 
+          $ref: './recambios/schemas/Precio_Recambio.yaml'
+        iva:
+          $ref: './recambios/schemas/IVA_Recambio.yaml'
+        importe:
+          $ref: './recambios/schemas/Importe_Recambio.yaml'
+        cantidad: 
+          $ref: './recambios/schemas/Cantidad_Recambio.yaml'
+        HTTP_Problem:
+          $ref: './recambios/schemas/Http_Problem.yaml'
+        Link:
+          $ref: './recambios/schemas/Link.yaml'
+
+    Notificaciones:
+      type: object
+      properties:
+        Notificacion:
+          $ref: './notificaciones.yaml#/components/schemas/Notificacion'
+        id_notificacion:
+          $ref: './notificaciones.yaml#/components/schemas/Id_Notificacion'
+        id_trabajo:
+          $ref: './notificaciones.yaml#/components/schemas/Id_Trabajo'
+        estado:
+          $ref: './notificaciones.yaml#/components/schemas/Estados_Trabajos'
+        fecha_emision:
+          $ref: './notificaciones.yaml#/components/schemas/Fecha_Emision'
+        HTTP_Problem:
+          $ref: './notificaciones.yaml#/components/schemas/HTTP_Problem'
+        Link:
+          $ref: './notificaciones.yaml#/components/schemas/Link'
+
+    Logs:
+      type: object
+      properties:
+        Log:
+          $ref: 'logs.yaml#/components/schemas/Log'
+        id:
+          $ref: 'logs.yaml#/components/schemas/Id_Log'  
+        Prioridad:
+          $ref: 'logs.yaml#/components/schemas/Prioridad'
+        susbsistema:
+          $ref: 'logs.yaml#/components/schemas/Subsistema'
+        HTTP_Problem:
+           $ref: 'logs.yaml#/components/schemas/HTTP_Problem'
+
+

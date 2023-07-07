@@ -21,6 +21,10 @@ Cliente:
           $ref: '#/Direccion_Cliente'
         cuenta_bancaria:
           $ref: '#/CuentaBancaria_Cliente'
+        telefono: 
+          $ref: '#/Telefono'
+        mail: 
+          $ref: '#/Mail'
         links:
           description: Enlaces de relación del Cliente
           readOnly: true
@@ -37,6 +41,8 @@ Cliente:
                   "apellidos" : "Clava Clavitos",
                   "direccion" : "miCasa",
                   "cuenta_bancaria" : "1111 1111 1111 1111",
+                  "telefono" : "+12 122122122",
+                  "mail" : "asdf@asdf.es",
                   "links": {
                     "parent": {
                       "href": "https://example.com/api/v1/clientes",
@@ -84,6 +90,18 @@ CuentaBancaria_Cliente:
   type: string
   pattern: "[a-zA-Z]{2}[0-9]{20}"
   example: "aa010101010101010101010"
+
+Telefono:
+  title: Telefono del cliente
+  type: string
+  pattern: "^+(?:[0-9] ?){6,14}[0-9]$"
+  example: "+12 12311231"
+
+Mail:
+  title: Mail del cliente
+  type: string
+  pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+  example: "asdf@asdf.asd"
 
 HTTP_Problem:
   type: object
